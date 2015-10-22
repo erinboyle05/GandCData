@@ -53,3 +53,6 @@ df$activity_level[df$activity_level == 6] <- "Laying"
 dftidy <- df %>%
         group_by(subject, activity_level) %>%
         summarize_each(funs(mean))
+
+# Write data to a txt file
+write.table(dftidy, file = "tidy_data.txt", row.names = FALSE)

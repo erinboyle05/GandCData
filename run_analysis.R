@@ -1,8 +1,17 @@
-#  These packages are required to run this code.
+#  Packages required to run code
 require(tidyr)
 require(dplyr)
 
-# These are the data files being used/
+#  Check to see if data was already downloaded.
+#  If not, download the data and unzip
+if (dir.exists("dataset") == FALSE) {
+        dir.create("dataset")
+        download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip",
+                      destfile = "dataset/dataset.zip")
+        unzip("dataset/dataset.zip")
+}
+
+# Load data files into R
 
 test1 <- read.table("dataset/test/subject_test.txt")
 test2 <- read.table("dataset/test/X_test.txt")
@@ -36,7 +45,7 @@ meansd_data <- select(data, matches('mean()|StandardDeviation()'))
 df <- cbind(subjrow, meansd_data, activity)
 df <- tbl_df(df)
 
-#  This line clears the enviornment of all unnecessary files/variables.
+#  Clear the enviornment of all unnecessary files/variables.
 rm(list=ls()[! ls() %in% c("df")])
 
 
@@ -52,7 +61,8 @@ df$activity_level[df$activity_level == 6] <- "Laying"
 # Group by subject and activity and calculate mean of variables.
 dftidy <- df %>%
         group_by(subject, activity_level) %>%
-        summarize_each(funs(mean))
+        summarize_each(funs(mean)) %>%
+        gather(variable, variable_means, -subject, -activity_level)
 
 # Write data to a txt file
 write.table(dftidy, file = "tidy_data.txt", row.names = FALSE)

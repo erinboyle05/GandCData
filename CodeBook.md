@@ -1,55 +1,32 @@
 ---
-title: "Codebook template"
-author: "Your name here"
-date: "The date here"
+title: "Getting and Cleaning Data Course Project"
+author: "Erin Boyle"
+date: "Oct 22, 2015"
 output:
   html_document:
     keep_md: yes
 ---
+ Codebook Update
 
-## Project Description
-Short description of the project
+ This file contains updates and modifications to the dataset-provided codebook files.
+ The files updated and modified are:
 
-##Study design and data processing
+ 	features_info.txt
 
-###Collection of the raw data
-Description of how the data was collected.
+Features_info.txt update:
+	
+	Only features containing "mean" or "std" were selected to be analysed.
+	All feature names were adjusted for clear, more descriptive labels. These changes were:
+		Acc -> Acceleration
+		Mag -> Magnitude
+		Freq -> Frequency
+		std -> StandardDeviation
 
-###Notes on the original (raw) data 
-Some additional notes (if avaialble, otherwise you can leave this section out).
+Creating tidy_data.txt
+	*This code utilizes the packages dplyr and tidyr.  For more information on these packages, please *consult the help files included with the packages
 
-##Creating the tidy datafile
+	This code will download and unzip the data files.  Be sure set your working directory
 
-###Guide to create the tidy data file
-Description on how to create the tidy data file (1. download the data, ...)/
+	The data is read into R to be used.  The R datasets were named in the order in which the files will be combined (subject, x, y) as well as whether they are from either the test or trial. (ie: test1 is the file subject_test.txt)  The dataset features contains the column names that are to be used.  The features dataset is modified to allow for more descriptive labeling.  See above for modifications. Datasets are combined and column names assigned as follows: set 1 = "subject", set 2 = features, set 3 = "activity_level" .  Duplicate columns are then removed and only columns containing the stings "mean" or "StandardDeviation" are selected.  The 3 datasets are combined into one data table.  To ensure enough memory is availible, the enviornment is cleared of all variables and datasets except the recently created data table.  The numerical observations listed in the activity_level column are replaced by character stings as listed in activity_lables.txt.  The dataset is grouped by subject, activity_level, and variable and the means of all other variables are calculated.  The resulting dataset is written to the file tidy_data.txt
 
-###Cleaning of the data
-Short, high-level description of what the cleaning script does. [link to the readme document that describes the code in greater detail]()
 
-##Description of the variables in the tiny_data.txt file
-General description of the file including:
- - Dimensions of the dataset
- - Summary of the data
- - Variables present in the dataset
-
-(you can easily use Rcode for this, just load the dataset and provide the information directly form the tidy data file)
-
-###Variable 1 (repeat this section for all variables in the dataset)
-Short description of what the variable describes.
-
-Some information on the variable including:
- - Class of the variable
- - Unique values/levels of the variable
- - Unit of measurement (if no unit of measurement list this as well)
- - In case names follow some schema, describe how entries were constructed (for example time-body-gyroscope-z has 4 levels of descriptors. Describe these 4 levels). 
-
-(you can easily use Rcode for this, just load the dataset and provide the information directly form the tidy data file)
-
-####Notes on variable 1:
-If available, some additional notes on the variable not covered elsewehere. If no notes are present leave this section out.
-
-##Sources
-Sources you used if any, otherise leave out.
-
-##Annex
-If you used any code in the codebook that had the echo=FALSE attribute post this here (make sure you set the results parameter to 'hide' as you do not want the results to show again)
